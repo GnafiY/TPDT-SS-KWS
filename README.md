@@ -1,1 +1,1 @@
-This is the official repository for Interspeech 2024 paper [*Text-aware Speech Separation for Multi-talker Keyword Spotting*](). We directly apply the default setup of MDTC from [*WeKws*](https://github.com/wenet-e2e/wekws) <code>examples/hey_snips/s0</code>.
+This is the official repository for Interspeech 2024 paper [*Text-aware Speech Separation for Multi-talker Keyword Spotting*](https://arxiv.org/abs/2406.12447). We directly apply the default setup of MDTC from [*WeKws*](https://github.com/wenet-e2e/wekws) <code>examples/hey_snips/s0</code>.
