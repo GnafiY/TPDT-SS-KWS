@@ -1,0 +1,28 @@
+In this repository, we fix the <code>scp</code> file as each line format of "${uid}, ${content}\n".
+This script is based on [*LibriMix*](https://github.com/JorisCos/LibriMix). Sample rate is fixed to 16k. To generate Snips2Mix (S2M) data, you may follow the instructions:
+
+1. Fill in the <code>storage_dir</code>, <code>local_dir</code>, <code>python_path</code> and in <code>generate_s2m.sh</code>. You may adjust SNR of mixture by adjusting variable <code>snr_map</code>.
+2. Fill in the <code>src_data_dir</code> in <code>scripts/create_s2m.py</code>. This path should contain metadata of Hey-Snips, LibriSpeech, and WHAM!, which require official json files, scps with uid and absolute directory to the waveform, and directory of simply WHAM! noise waveform. You may refer to [*LibriMix*](https://github.com/JorisCos/LibriMix) for metadata.
+3. Run <code>generate_s2m.sh --stage 1 --stop_stage 2</code>. If you wish to evaluate the SNR, please run <code>stage 2</code>.
+4. Generate scp files. Please generate <code>cond.scp</code> by taking random $N$ rows of keyword wavs as condition. Afterwards, merge them with the official Libri2Mix dataset. Finally, your dump directory (which is <code>../../dump/raw</code>) should be like this:
+```bash
+├── dev-snips-min   # merge s2m and l2m
+│   ├── spk1.scp
+│   ├── spk2.scp
+│   ├── wav.scp
+│   └── wkp.scp
+├── train-snips-min # merge s2m and l2m
+│   ├── spk1.scp
+│   ├── spk2.scp
+│   ├── wav.scp
+│   └── wkp.scp
+├── test-snips-min  # simply s2m
+│   ├── spk1.scp
+│   ├── spk2.scp
+│   └── wav.scp     # for test set, we don't need wkp.scp
+├── test-min        # simply l2m
+│   ├── spk1.scp
+│   ├── spk2.scp
+│   └── wav.scp     # for test set, we don't need wkp.scp
+```
+, where <code>wkp.scp</code> file indicates whether a uid refers to a keyword mixture or not. Each line of <code>wkp.scp</code> should be in format of "${uid} 0/1", with '1' indicating the presence of the keyword and '0' the opposite.
